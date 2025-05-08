@@ -12,12 +12,10 @@ public:
     std::string getFirstname() const;
     std::string getLastname() const;
     std::string getNickname() const;
-    std::string setFirstname(std::string& newFirstname);
-    std::string setLastname(std::string& newLastname);
-    std::string setNickname(std::string& newNickname);
-    void nameprint(std::ostream& os) const;
+    void setFirstname(const std::string& newFirstname);
+    void setLastname(const std::string& newLastname);
+    void setNickname(const std::string& newNickname);
     ~Name() {}
 };
-std::ostream& operator<<(std::ostream& os, const Name& n);
 
 #endif //TELEFONKONYV_NAME_H
