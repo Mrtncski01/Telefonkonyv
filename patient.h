@@ -11,13 +11,11 @@ public:
     const std::string& newWorkPhone, const std::string& newAddress,
     const std::string& newCondition, const std::string& newDoctorName) : Contact(newName, newPrivatePhone, newWorkPhone, newAddress),
     doctorName(newDoctorName), condition(newCondition) {}
-    std::string getCondition() const {
-        return condition;
-    }
-    std::string getdoctorName() const {
-        return doctorName;
-    }
-    ool operator==(const Contact& c) const override;
-    void print(std::ostream& os) const override;
+    std::string getCondition() const;
+    std::string getdoctorName() const;
+    void setCondition(std::string newCondition);
+    void setdoctorName(std::string newdoctorName);
+    void print(std::ostream& os) const;
 };
+std::ostream& operator<<(std::ostream& os, const Patient& p);
 #endif //TELEFONKONYV_PATIENT_H
