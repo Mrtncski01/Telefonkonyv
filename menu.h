@@ -7,9 +7,6 @@ class Menu {
 private:
     Phonebook phonebook;
     void displayMainMenu() const;
-    void addContact();
-    void removeContact();
-    void listAllContacts();
 public:
     void run();
 };
