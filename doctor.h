@@ -11,13 +11,11 @@ public:
            const std::string& newWorkPhone, const std::string& newAddress,
            const std::string& newWorkplace, const std::string& newSpecialization) : Contact(newName, newPrivatePhone, newWorkPhone, newAddress),
            specialization(newSpecialization), workplace(newWorkplace) {}
-    std::string getSpecialization() const {
-        return specialization;
-    }
-    std::string getWorkplace() const {
-        return workplace;
-    }
-    bool operator==(const Contact& c) const override;
-    void print(std::ostream& os) const override;
+    std::string getSpecialization() const;
+    std::string getWorkplace() const;
+    void setSpecialization(const std::string newSpecialization);
+    void setWorkplace(const std::string newWorkplace);
+    void print(std::ostream& os) const;
 };
+std::ostream& operator<<(std::ostream& os, const Doctor& d);
 #endif //TELEFONKONYV_DOCTOR_H
