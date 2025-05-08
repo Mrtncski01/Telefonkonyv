@@ -24,3 +24,10 @@ void Name::setLastname(const std::string &newLastname) {
 void Name::setNickname(const std::string &newNickname) {
     nickname=newNickname;
 }
+
+std::ostream& operator<<(std::ostream& os, const Name& name) {
+    os << "First Name: " << name.getFirstname() << '\n'
+       << "Last Name: " << name.getLastname() << '\n'
+       << "Nickname: " << name.getNickname();
+    return os;
+}

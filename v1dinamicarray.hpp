@@ -20,4 +20,16 @@ public:
     const T& operator[](int index) const;
 };
 
+
+template <typename T>
+int DynamicArray<T>::getsize() const {
+    return size;
+}
+
+template <typename T>
+void DynamicArray<T>::list(std::ostream& os) const {
+    for (int i = 0; i < size; ++i)
+        os << *array[i] << '\n';
+}
+
 #endif //TELEFONKONYV_V1DINAMICARRAY_HPP

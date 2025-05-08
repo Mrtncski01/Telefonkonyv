@@ -18,4 +18,6 @@ public:
     ~Name() {}
 };
 
+std::ostream& operator<<(std::ostream& os, const Name& name);
+
 #endif //TELEFONKONYV_NAME_H

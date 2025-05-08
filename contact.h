@@ -13,6 +13,7 @@ public:
             const std::string& newPrivatePhone,
             const std::string& newWorkPhone,
             const std::string& newAddress) : name(newName), privatePhone(newPrivatePhone), workPhone(newWorkPhone), address(newAddress) {}
+    Name getName() const;
     std::string getAddress() const;
     std::string getWorkPhone() const;
     std::string getPrivatePhone() const;

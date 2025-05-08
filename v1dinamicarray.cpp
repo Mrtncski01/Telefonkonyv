@@ -14,10 +14,9 @@ public:
     }
 
     void add(const T& newContact);
-    void list(std::ostream& os) const;
-    int getsize() const;
     T& operator[](int index);
     const T& operator[](int index) const;
 };
+
 
 #endif //TELEFONKONYV_V1DINAMICARRAY_HPP

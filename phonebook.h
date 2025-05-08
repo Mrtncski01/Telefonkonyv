@@ -1,7 +1,7 @@
 
 #ifndef TELEFONKONYV_PHONEBOOK_H
 #define TELEFONKONYV_PHONEBOOK_H
-#include "v1dynamicarray.hpp"
+#include "v1dinamicarray.hpp"
 #include "contact.h"
 
 class Phonebook {

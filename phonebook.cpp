@@ -8,7 +8,7 @@ void Phonebook::listContacts() const {
         std::cout << "nincs contact";
     }
     else {
-        contacts.list();
+        contacts.list(std::cout);
     }
 }
 
@@ -16,7 +16,7 @@ void Phonebook::addContact() {
     int valasztas;
     std::string newfirst, newlast, newnick, newprivate, newwork, newaddr;
     std::cout << "uj keresztnevnev";
-    std::cin >> newfirts;
+    std::cin >> newfirst;
     std::cout << "uj vezeteknev\n";
     std::cin >> newlast;
     std::cout << "uj becenev\n";
@@ -27,21 +27,18 @@ void Phonebook::addContact() {
     std::cin >> newprivate;
     std::cout << "uj munkahelyiszam\n";
     std::cin >> newwork;
-    std::cout << "orvost(1) vagy pacienst(2) szeretnél?\n"
+    std::cout << "orvost(1) vagy pacienst(2) szeretnél?\n";
     std::cin >> valasztas;
     switch(valasztas) {
         case 1:
-            std::string ujspec, ujmunkahely;
-            std::cout << "uj spec";
-            std::cin >> ujspec;
+            std::cout << "uj spec\n";
             std::cout << "uj munkaehely\n";
-            std::cin >> ujmunkahely;
-            break:
+            break;
         case 2:
-            std::string ujorvos, ujallapot;
             std::cout << "uj orvos";
-            std::cin >> ujorvos;
             std::cout << "uj allapot\n";
-            std::cin >> ujallapot;
+            break;
+        default:
+            break;
     }
 }
