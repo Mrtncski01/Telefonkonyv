@@ -1,7 +1,7 @@
 
 #ifndef TELEFONKONYV_PHONEBOOK_H
 #define TELEFONKONYV_PHONEBOOK_H
-#include "dynamicarray.h"
+#include "v1dynamicarray.hpp"
 #include "contact.h"
 
 class Phonebook {
@@ -9,8 +9,7 @@ private:
     DynamicArray<Contact*> contacts;
 public:
     Phonebook() {}
-    void addContact(Contact* newContact);
-    void removeContact(int index);
+    void addContact();
     void listContacts() const;
     ~Phonebook() {}
 };
