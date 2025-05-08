@@ -13,12 +13,14 @@ std::string Name::getNickname() const {
     return nickname;
 }
 
-void Name::nameprint(std::ostream &os) const {
-    os<< firstname << " " << lastname << "(" << nickname << ")";
+void Name::setFirstname(const std::string &newFirstname) {
+    firstname=newFirstname;
 }
 
-std::ostream& operator<<(std::ostream& os, const Name& n) {
-    n.nameprint(os);
+void Name::setLastname(const std::string &newLastname) {
+    lastname=newLastname;
+}
 
-    return os;
+void Name::setNickname(const std::string &newNickname) {
+    nickname=newNickname;
 }
