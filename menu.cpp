@@ -1,7 +1,8 @@
 #include "menu.h"
-#include <iostream>
+#include "memtrace.h"
+
 void Menu::displayMainMenu() const {
-    std::cout << "* * * * * * * * * * * * * * * * * * * * * * *\n"
+    std::cout << "\n* * * * * * * * * * * * * * * * * * * * * * *\n"
               << "T   E   L   E   F   O   N   K   O   N   Y   V\n"
               << "* * * * * * * * * * * * * * * * * * * * * * *\n"
               << "UJ KONTAKT LETRHOZASA                     [1]\n"
@@ -14,33 +15,37 @@ void Menu::displayMainMenu() const {
 }
 
 void Menu::run() {
+    std::ostream& os = std::cout;
+    Phonebook pb;
+    pb.loadFromFile("contact_database.txt");
     int userChoice;
     do {
         displayMainMenu();
-        std::cout << "OPTION:";
+        std::cout << "OPCIO:";
         std::cin >> userChoice;
         switch(userChoice) {
             case 1:
-                std::cout << "kontakt letrehozasa, ezt meg kell csinalni\n";
+                pb.addContact();
                 break;
             case 2:
-                std::cout << "kontakt modositasa, ezt meg kell csinalni\n";
+                pb.modifyContact(os);
                 break;
             case 3:
-                std::cout << "osszes kontakt listazasa, ezt meg kell csinalni\n";
+                pb.listAllContact(os);
                 break;
             case 4:
-                std::cout << "kontakt keresese, ezt meg kell csinalni\n";
+                pb.searchContact(os); //itt az eseteket kéne szétbontani, de nem jut semmi eszembe
                 break;
             case 5:
-                std::cout << "kontakt torlese, ezt meg kell csinalni\n";
+                pb.removeContact(os);
                 break;
             case 6:
                 break;
             default:
-                std::cout << "ERVENYTELEN VALASZTAS\n";
+                std::cout << "ERVENYTELEN VALASZTAS!\n";
                 break;
         }
     }while(userChoice!=6);
-    std::cout << "VISZONT LATASRA\n";
+    pb.saveToFile();
+    std::cout << "VISZONT LATASRA!\n"; /*filekezelés*/ /*teszteket meg kéne írni*/
 }
