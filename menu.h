@@ -1,13 +1,17 @@
-
-#ifndef TELEFONKONYV_MENU_H
-#define TELEFONKONYV_MENU_H
+#ifndef PHONEBOOK_MENU_H
+#define PHONEBOOK_MENU_H
+#include <iostream>
 #include "phonebook.h"
+
 
 class Menu {
 private:
-    Phonebook phonebook;
     void displayMainMenu() const;
 public:
+    Menu() {}
     void run();
+    ~Menu() {}
 };
-#endif //TELEFONKONYV_MENU_H
+
+
+#endif //PHONEBOOK_MENU_H
