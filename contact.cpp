@@ -1,7 +1,10 @@
 #include "contact.h"
+#include "doctor.h"
+#include "patient.h"
 #include <iostream>
+#include "memtrace.h"
 
-Name Contact::getName() const {
+Name& Contact::getName()  {
     return name;
 }
 
@@ -32,10 +35,27 @@ bool Contact::operator==(const std::string& s) const {
     return name.getFirstname()==s || name.getLastname()==s || name.getNickname()==s || getPrivatePhone()==s;
 }
 
-std::ostream& operator<<(std::ostream& os, const Contact& c) {
-    os << "Name: " << c.getName() << '\n'
-       << "Private Phone: " << c.getPrivatePhone() << '\n'
-       << "Work Phone: " << c.getWorkPhone() << '\n'
-       << "Address: " << c.getAddress() << '\n';
-    return os;
+Contact* Contact::deserialize(const std::string& line) {
+    std::istringstream iss(line);
+    std::string type;
+    getline(iss, type, '|');
+
+    std::string ln, fn, nick, addr, workP, privP, extra1, extra2;
+    getline(iss, ln, '|');
+    getline(iss, fn, '|');
+    getline(iss, nick, '|');
+    getline(iss, addr, '|');
+    getline(iss, workP, '|');
+    getline(iss, privP, '|');
+    getline(iss, extra1, '|');
+    getline(iss, extra2, '|');
+
+    if (type == "1") {
+        return new Doctor(Name(fn, ln, nick), privP, workP, addr, extra2, extra1);
+    } else if (type == "2") {
+        return new Patient(Name(fn, ln, nick), privP, workP, addr, extra1, extra2);
+    } else {
+        throw std::runtime_error("Ismeretlen típus: " + type);
+    }
 }
+
