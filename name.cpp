@@ -1,5 +1,5 @@
-#include <iostream>
 #include "name.h"
+#include "memtrace.h"
 
 std::string Name::getFirstname() const {
     return firstname;
@@ -25,9 +25,13 @@ void Name::setNickname(const std::string &newNickname) {
     nickname=newNickname;
 }
 
-std::ostream& operator<<(std::ostream& os, const Name& name) {
-    os << "First Name: " << name.getFirstname() << '\n'
-       << "Last Name: " << name.getLastname() << '\n'
-       << "Nickname: " << name.getNickname();
+void Name::namePrint(std::ostream &os) const {
+    os << "VEZETEKNEV: " << getLastname() << '\n'
+       << "KERESZTNEV: " << getFirstname() << '\n'
+       << "BECENEV: " << getNickname() << '\n';
+}
+
+std::ostream& operator<<(std::ostream& os, Name& n) {
+    n.namePrint(os);
     return os;
 }
