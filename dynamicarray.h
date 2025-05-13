@@ -1,23 +1,28 @@
+#ifndef PHONEBOOK_DINAMICYARRAY_H
+#define PHONEBOOK_DINAMICYARRAY_H
+#include <iostream>
+#include "contact.h"
+#include "doctor.h"
+#include "patient.h"
 
-#ifndef TELEFONKONYV_DYNAMICARRAY_H
-#define TELEFONKONYV_DYNAMICARRAY_H
 
-template <typename T>
-class DynamicArray {
+class DinamicArray {
 private:
-    T* array;
-    int size;
+    size_t size;
+    size_t capacity;
+    Contact **array;
 public:
-    DynamicArray() {}
-    DynamicArray(const DynamicArray& d) {}
-    DynamicArray& operator=(const DynamicArray& d);
-    ~DynamicArray() {}
-
-    void add(const T& newContact);
-    void remove(int index);
-    int getsize() const;
-    T& operator[](int index);
-    const T& operator[](int index) const;
+    DinamicArray() : array(nullptr),  size(0),  capacity(0){}
+    ~DinamicArray();
+    size_t getsize() const;
+    Contact& operator[](int index) const;
+    void add(Contact* c);
+    void list(std::ostream& os);
+    void remove(size_t index);
+    void resize();
+    void search(std::string find, std::ostream& os) const;
+    void modify(int modifyingAttribution, Contact& c);
 };
 
-#endif //TELEFONKONYV_DYNAMICARRAY_H
+
+#endif //PHONEBOOK_DINAMICYARRAY_H
