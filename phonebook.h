@@ -1,16 +1,21 @@
-
-#ifndef TELEFONKONYV_PHONEBOOK_H
-#define TELEFONKONYV_PHONEBOOK_H
-#include "v1dinamicarray.hpp"
-#include "contact.h"
+#ifndef PHONEBOOK_PHONEBOOK_H
+#define PHONEBOOK_PHONEBOOK_H
+#include "dinamicyarray.h"
 
 class Phonebook {
 private:
-    DynamicArray<Contact*> contacts;
+    DinamicArray d;
 public:
     Phonebook() {}
-    void addContact();
-    void listContacts() const;
     ~Phonebook() {}
+    void addContact();
+    void listAllContact(std::ostream &os);
+    void removeContact(std::ostream &os);
+    void searchContact(std::ostream &os);
+    void modifyContact(std::ostream& os);
+    void saveToFile();
+    void loadFromFile(const std::string& filename);
 };
-#endif //TELEFONKONYV_PHONEBOOK_H
+
+
+#endif //PHONEBOOK_PHONEBOOK_H
