@@ -1,7 +1,8 @@
-#ifndef TELEFONKONYV_CONTACT_H
-#define TELEFONKONYV_CONTACT_H
+#ifndef PHONEBOOK_CONTACT_H
+#define PHONEBOOK_CONTACT_H
 #include "name.h"
 #include <iostream>
+
 class Contact {
 protected:
     Name name;
@@ -13,7 +14,7 @@ public:
             const std::string& newPrivatePhone,
             const std::string& newWorkPhone,
             const std::string& newAddress) : name(newName), privatePhone(newPrivatePhone), workPhone(newWorkPhone), address(newAddress) {}
-    Name getName() const;
+    Name& getName() ;
     std::string getAddress() const;
     std::string getWorkPhone() const;
     std::string getPrivatePhone() const;
@@ -22,7 +23,10 @@ public:
     void setPrivatePhone(std::string newPrivatePhone);
     bool operator==(const std::string& s) const;
     virtual void print(std::ostream& os) const = 0;
+    virtual std::string serialize() const = 0;
+    static Contact* deserialize(const std::string& line);
     virtual ~Contact() {}
 };
-std::ostream& operator<<(std::ostream& os, const Contact& c);
-#endif //TELEFONKONYV_CONTACT_H
+
+
+#endif // PHONEBOOK_CONTACT_H
