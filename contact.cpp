@@ -2,7 +2,7 @@
 #include "doctor.h"
 #include "patient.h"
 #include <iostream>
-#include "memtrace.h"
+#include <sstream>
 
 Name& Contact::getName()  {
     return name;

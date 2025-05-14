@@ -1,6 +1,6 @@
 #ifndef PHONEBOOK_PHONEBOOK_H
 #define PHONEBOOK_PHONEBOOK_H
-#include "dinamicyarray.h"
+#include "dinamicarray.h"
 
 class Phonebook {
 private:

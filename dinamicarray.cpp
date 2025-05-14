@@ -1,5 +1,4 @@
-#include "dinamicyarray.h"
-#include "memtrace.h"
+#include "dinamicarray.h"
 
 DinamicArray::~DinamicArray() {
     for(size_t i=0; i<size; i++) {

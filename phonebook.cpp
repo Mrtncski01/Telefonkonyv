@@ -1,7 +1,6 @@
-#include "Phonebook.h"
+#include "phonebook.h"
 #include <iostream>
-#include "dinamicyarray.h"
-#include "memtrace.h"
+#include <fstream>
 
 void Phonebook::listAllContact(std::ostream& os) {
     if(d.getsize()==0) {
@@ -108,7 +107,7 @@ void Phonebook::loadFromFile(const std::string& filename) {
     }
 
     std::string line;
-    while (getline(file, line)) {
+    while (std::getline(file, line)) {
         if (line.empty()) continue;
 
         try {

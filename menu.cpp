@@ -1,5 +1,4 @@
 #include "menu.h"
-#include "memtrace.h"
 
 void Menu::displayMainMenu() const {
     std::cout << "\n* * * * * * * * * * * * * * * * * * * * * * *\n"

@@ -1,6 +1,8 @@
 #include <iostream>
-#include "Phonebook.h"
+#include "phonebook.h"
 #include "menu.h"
+#include "memtrace.h"
+
 
 int main() {
     Menu m;

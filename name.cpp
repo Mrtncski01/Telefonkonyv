@@ -1,5 +1,4 @@
 #include "name.h"
-#include "memtrace.h"
 
 std::string Name::getFirstname() const {
     return firstname;

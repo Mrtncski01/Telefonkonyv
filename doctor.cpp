@@ -1,5 +1,5 @@
 #include "doctor.h"
-#include "memtrace.h"
+#include <sstream>
 
 std::string Doctor::getSpecialization() const {
     return specialization;

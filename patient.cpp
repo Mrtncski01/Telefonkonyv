@@ -1,5 +1,5 @@
 #include "patient.h"
-#include "memtrace.h"
+#include <sstream>
 
 std::string Patient::getCondition() const {
     return condition;
