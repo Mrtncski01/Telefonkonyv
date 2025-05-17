@@ -31,9 +31,21 @@ void Contact::setWorkPhone(std::string newWorkPhone) {
 void Contact::setPrivatePhone(std::string newPrivatePhone) {
     privatePhone=newPrivatePhone;
 }
-
-bool Contact::operator==(const std::string& s) const {
-    return name.getFirstname()==s || name.getLastname()==s || name.getNickname()==s || getPrivatePhone()==s;
+bool Contact::contactMatches(const std::string& s, int userChoice) const {
+    switch (userChoice) {
+        case 1:
+            return name.getLastname()==s;
+            break;
+        case 2:
+            return name.getFirstname()==s;
+            break;
+        case 3:
+            return name.getNickname()==s;
+            break;
+        case 4:
+            return getPrivatePhone()==s;
+            break;
+    }
 }
 
 Contact* Contact::deserialize(const std::string& line) {
@@ -53,7 +65,7 @@ Contact* Contact::deserialize(const std::string& line) {
 
     if (type == "1") {
         return new Doctor(Name(fn, ln, nick), privP, workP, addr, extra2, extra1);
-    } else if (type == "2") {
+    } else if (type == "0") {
         return new Patient(Name(fn, ln, nick), privP, workP, addr, extra1, extra2);
     } else {
         throw std::runtime_error("ISMERETLEN TIPUS: " + type);
