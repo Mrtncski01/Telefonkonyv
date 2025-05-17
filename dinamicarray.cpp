@@ -1,4 +1,5 @@
 #include "dinamicarray.h"
+#include "memtrace.h"
 
 DinamicArray::~DinamicArray() {
     for(size_t i=0; i<size; i++) {
@@ -12,22 +13,25 @@ size_t DinamicArray::getsize() const {
 }
 
 Contact& DinamicArray::operator[](int index) const {
+    if(index<0 || index>=size)
+        throw "HIBAS INDEX!";
     return *array[index];
 }
 
 void DinamicArray::resize() {
-    Contact **newArray= new Contact *[capacity+10];
-    for(size_t i=0; i<capacity; i++) {
+    size_t newCapacity = capacity+10;
+    Contact **newArray= new Contact *[newCapacity];
+    for(size_t i=0; i<size; i++) {
         newArray[i]=array[i];
     }
-    capacity+=10;
     delete[] array;
     array=newArray;
+    capacity = newCapacity;
 }
 
 void DinamicArray::list(std::ostream& os) {
     if(size==0) {
-        std::cout << "NINCS KONTAKT!";
+        std::cout << "NINCS KONTAKT!\n";
     }
     for(size_t i=0; i<size; i++) {
         os << '[' << i+1 <<"]. SZEMELY:\n";
@@ -45,18 +49,16 @@ void DinamicArray::add(Contact *c) {
 }
 
 void DinamicArray::remove(size_t index) {
+    if (index<1 || index>size)
+        throw std::out_of_range("HIBAS INDEX!");
     delete array[index-1];
-    Contact **newArray=new Contact *[size-1];
-    for(size_t i=0; i<size; i++) {
-        if(i!=(index-1))
-            newArray[i]=array[i];
+    for (size_t i=index; i<size; ++i) {
+        array[i-1] = array[i];
     }
-    size-=1;
-    delete[] array;
-    array=newArray;
+    size--;
 }
 
-void DinamicArray::search(std::string find, std::ostream& os) const {
+bool DinamicArray::search(std::string find, std::ostream& os) const {
     int index=0;
     for(size_t i=0; i<size; i++) {
         if(*array[i] == find) {
@@ -64,80 +66,73 @@ void DinamicArray::search(std::string find, std::ostream& os) const {
             array[i]->print(os);
             std::cout << '\n';
             index++;
+            return true;
         }
     }
+    return false;
 }
 
 void DinamicArray::modify(int modifyingAttribution, Contact& c) {
     switch (modifyingAttribution) {
         case 1: {
             std::string newLast;
-            std::cout << "UJ VEZETEKNEV: "; std::cin >> newLast;
+            newLast= readStringInput("UJ VEZETEKNEV:");
             c.getName().setLastname(newLast);
             break;
         }
         case 2: {
             std::string newFirst;
-            std::cout << "UJ KERESZTNEV: "; std::cin >> newFirst;
-            c.getName().setLastname(newFirst);
+            newFirst= readStringInput("UJ KERESZTNEV:");
+            c.getName().setFirstname(newFirst);
             break;
         }
         case 3: {
             std::string newNick;
-            std::cout << "UJ BECENEV: ";
-            std::cin >> newNick;
+            newNick= readStringInput("UJ BECENEV:");
             c.getName().setNickname(newNick);
             break;
         }
         case 4: {
             std::string newAddr;
-            std::cout << "Uj CIM: ";
-            std::cin >> newAddr;
+            newAddr= readStringInput("UJ CIM:");
             c.setAddress(newAddr);
             break;
             }
         case 5: {
             std::string newWorkP;
-            std::cout << "Uj MUNKAHELYI SZAM: ";
-            std::cin >> newWorkP;
+            newWorkP= readStringInput("UJ MUNKAHELYI SZAM:");
             c.setWorkPhone(newWorkP);
             break;
         }
         case 6: {
             std::string newPrivateP;
-            std::cout << "UJ PRIVAT SZAM: ";
-            std::cin >> newPrivateP;
+            newPrivateP= readStringInput("UJ PRIVAT SZAM:");
             c.setPrivatePhone(newPrivateP);
             break;
         }
         case 7: {
-            std::string newCastSpec;
+            std::string extra1;
             if (Patient *p = dynamic_cast<Patient *>(&c)) {
-                std::cout << "UJ EGESZSEGUGYI ALLAPOT: ";
-                std::cin >> newCastSpec;
-                p->setCondition(newCastSpec);
+                extra1= readStringInput("UJ EGESZSEGUGYI ALLAPOT:");
+                p->setCondition(extra1);
             } else if (Doctor *d = dynamic_cast<Doctor *>(&c)) {
-                std::cout << "UJ SPECIALIZACIO: ";
-                std::cin >> newCastSpec;
-                d->setSpecialization(newCastSpec);
+                extra1= readStringInput("UJ SPECIALIZACIO:");
+                d->setSpecialization(extra1);
             }
             break;
         }
         case 8: {
-            std::string newCastSpec2;
+            std::string extra2;
             if (Patient *p = dynamic_cast<Patient *>(&c)) {
                 std::cout << "UJ KEZELOORVOS NEVE: ";
-                std::cin >> newCastSpec2;
-                p->setdoctorName(newCastSpec2);
+                extra2= readStringInput("UJ KEZELOORVOS NEVE: ");
+                p->setdoctorName(extra2);
             } else if (Doctor *d = dynamic_cast<Doctor *>(&c)) {
-                std::cout << "UJ MUNKAHELY: ";
-                std::cin >> newCastSpec2;
-                d->setWorkplace(newCastSpec2);
+                extra2= readStringInput("UJ MUNKAHELY: ");
+                d->setWorkplace(extra2);
             }
             break;
         }
-        default:
-            std::cout << "ROSSZ OPCIO!\n";
     }
 }
 
