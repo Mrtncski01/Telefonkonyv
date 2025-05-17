@@ -58,18 +58,19 @@ void DinamicArray::remove(size_t index) {
     size--;
 }
 
-bool DinamicArray::search(std::string find, std::ostream& os) const {
+bool DinamicArray::search(std::string find, int uchoice, std::ostream& os) const {
     int index=0;
+    bool found=false;
     for(size_t i=0; i<size; i++) {
-        if(*array[i] == find) {
+        if(array[i]->contactMatches(find, uchoice)) {
             std::cout << '[' << index+1 << "]. SZEMELY:\n";
             array[i]->print(os);
             std::cout << '\n';
-            index++;
-            return true;
+            found=true;
         }
+        index++;
     }
-    return false;
+    return found;
 }
 
 void DinamicArray::modify(int modifyingAttribution, Contact& c) {
