@@ -3,6 +3,7 @@
 #include "patient.h"
 #include <iostream>
 #include <sstream>
+#include "memtrace.h"
 
 Name& Contact::getName()  {
     return name;
@@ -55,7 +56,7 @@ Contact* Contact::deserialize(const std::string& line) {
     } else if (type == "2") {
         return new Patient(Name(fn, ln, nick), privP, workP, addr, extra1, extra2);
     } else {
-        throw std::runtime_error("Ismeretlen típus: " + type);
+        throw std::runtime_error("ISMERETLEN TIPUS: " + type);
     }
 }
 
