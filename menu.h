@@ -3,14 +3,14 @@
 #include <iostream>
 #include "phonebook.h"
 
-
+//menu osztaly. ez mutatja a felhasznalonak a menut, ahonnan tud opciokat valasztani.
 class Menu {
 private:
-    void displayMainMenu() const;
+    void displayMainMenu() const; //a menut mutatja
 public:
-    Menu() {}
-    void run();
-    ~Menu() {}
+    Menu() {} //menu osztaly konstruktora
+    void run(); //a program futasaert felel, ennek a fuggvenynek az inditasakor kezd el a felhasznalo eloszor kommunikalni a programmal
+    ~Menu() {} //menu osztaly destruktora
 };
 
 
