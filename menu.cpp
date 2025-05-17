@@ -18,8 +18,8 @@ void Menu::displayMainMenu() const {
 void Menu::run() {
     std::ostream& os = std::cout;
     Phonebook pb;
-    pb.loadFromFile("contact_database.txt");
-    int userChoice;
+    pb.loadFromFile("contact_database.txt"); //kiolvassuk a filebol a mar elmentett adatokat a program elozo futasakor, mar ha vannak
+    int userChoice; //a felhasznalo eldonti melyik opciot valasztja
     do {
         displayMainMenu();
         try {
@@ -44,9 +44,9 @@ void Menu::run() {
                 break;
         }
         }catch (const std::exception& e) {
-            std::cerr << "HIBA: " << e.what() << '\n';
+            std::cerr << "HIBA: " << e.what() << '\n'; //ha valahol a programban hiba tortent, akkor itt kerul jelzesre a felhasznalonak.
         }
     }while(userChoice!=6);
-    pb.saveToFile();
+    pb.saveToFile(); //program futasa vegen elmentjuk az osszes adatot, ami a dinamikus tombben meg bennmaradt
     std::cout << "VISZONT LATASRA!";
 }
