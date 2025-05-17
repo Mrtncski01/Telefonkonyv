@@ -1,5 +1,6 @@
 #include "Phonebook.h"
 #include <iostream>
+#include <fstream>
 #include "dinamicarray.h"
 #include "inputmanaging.h"
 #include "memtrace.h"
