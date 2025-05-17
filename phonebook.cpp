@@ -56,10 +56,13 @@ void Phonebook::searchContact(std::ostream &os) {
     if(d.getsize()==0)
         std::cout << "NINCS KONTAKT!\n";
     else {
+        int choice;
         std::string findingContact;
-        std::cout << "EZEKBOL A MEZOKBOL FOG KERESNI:NEV, BECENEV, PRIVAT SZAM\n";//itt nem tudom hogyan kene esetekre szetbonatni, mert akkor ugye az ==operatornak nem lenne ertelme, esetekre meg nem tudom mennyi ertelme van mert az operator || esetekkel foglalkozik
-        findingContact= readStringInput("ADAT:");
-        if(!d.search(findingContact, os))
+        std::cout << "KERESESI LEHETOSEGEK:VEZETEKNEV(1), KERESZTNEV(2), BECENEV(3), PRIVAT SZAM(4)\n";
+        choice= readIndexInput("VALASZTASOD:", 1, 4);
+        findingContact=readStringInput("ADAT:");
+
+        if(!d.search(findingContact, choice, os))
             std::cout << "NINCS ILYEN KONTAKT!\n";
     }
 }
