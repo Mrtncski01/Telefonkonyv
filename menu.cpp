@@ -1,7 +1,9 @@
 #include "menu.h"
+#include "memtrace.h"
+#include "inputmanaging.h"
 
 void Menu::displayMainMenu() const {
-    std::cout << "\n* * * * * * * * * * * * * * * * * * * * * * *\n"
+    std::cout << "* * * * * * * * * * * * * * * * * * * * * * *\n"
               << "T   E   L   E   F   O   N   K   O   N   Y   V\n"
               << "* * * * * * * * * * * * * * * * * * * * * * *\n"
               << "UJ KONTAKT LETRHOZASA                     [1]\n"
@@ -20,8 +22,8 @@ void Menu::run() {
     int userChoice;
     do {
         displayMainMenu();
-        std::cout << "OPCIO:";
-        std::cin >> userChoice;
+        try {
+        userChoice= readIndexInput("OPCIO:", 1, 6);
         switch(userChoice) {
             case 1:
                 pb.addContact();
@@ -33,18 +35,18 @@ void Menu::run() {
                 pb.listAllContact(os);
                 break;
             case 4:
-                pb.searchContact(os); //itt az eseteket kéne szétbontani, de nem jut semmi eszembe
+                pb.searchContact(os);
                 break;
             case 5:
                 pb.removeContact(os);
                 break;
             case 6:
                 break;
-            default:
-                std::cout << "ERVENYTELEN VALASZTAS!\n";
-                break;
+        }
+        }catch (const std::exception& e) {
+            std::cerr << "HIBA: " << e.what() << '\n';
         }
     }while(userChoice!=6);
     pb.saveToFile();
-    std::cout << "VISZONT LATASRA!\n"; /*filekezelés*/ /*teszteket meg kéne írni*/
+    std::cout << "VISZONT LATASRA!";
 }
