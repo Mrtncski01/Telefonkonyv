@@ -1,10 +1,12 @@
-#include "phonebook.h"
+#include "Phonebook.h"
 #include <iostream>
-#include <fstream>
+#include "dinamicarray.h"
+#include "inputmanaging.h"
+#include "memtrace.h"
 
 void Phonebook::listAllContact(std::ostream& os) {
     if(d.getsize()==0) {
-        std::cout << "NINCS KONTAKT!";
+        std::cout << "NINCS KONTAKT!\n";
     }
     else {
         d.list(os);
@@ -16,28 +18,26 @@ void Phonebook::addContact() {
     int choice;
     std::cout << "UJ KONTAKT HOZZAADASA\n";
     std::cout << "ORVOST(1), VAGY PACIENST(2) SZERETNEL?\n";
-    std::cout <<"OPCIO:";
-    std::cin >> choice;
-    std::cout << "VEZETEKNEV:"; std::cin >> newLast;
-    std::cout << "KERESZTNEV:"; std::cin >> newFirst;
-    std::cout << "BECENEV:"; std::cin >> newNick;
-    std::cout << "CIM:"; std::cin >> newAddr;
-    std::cout << "PRIVAT SZAM:"; std::cin >> newPrivateP;
-    std::cout << "MUNKAHELYI SZAM:"; std::cin >> newWorkP;
+    choice= readIndexInput("OPCIO:", 1, 2);
+    newLast= readStringInput("VEZETEKNEV:");
+    newFirst= readStringInput("KERESZTNEV:");
+    newNick= readStringInput("BECENEV:");
+    newAddr= readStringInput("CIM:");
+    newPrivateP= readStringInput("PRIVAT SZAM:");
+    newWorkP=readStringInput("MUNKAHELYI SZAM:");
 
     Name NewN(newFirst, newLast, newNick);
-    if(choice==1) {
+    if (choice == 1) {
         std::string newWorkPl, newSpec;
-        std::cout << "MUNKAHELY:"; std::cin >> newWorkPl;
-        std::cout << "SPECIALIZACIO:"; std::cin >> newSpec;
+        newWorkPl= readStringInput("MUNKAHELY:");
+        newSpec= readStringInput("SPECIALIZACIO:");
         d.add(new Doctor(NewN, newPrivateP, newWorkP, newAddr, newWorkP, newSpec));
-    }
-    else if(choice==2) {
+    } else if (choice == 2) {
         std::string newDoc, newCond;
-        std::cout << "KEZELOORVOS:"; std::cin >> newDoc;
-        std::cout << "EGESZSEGUGYI ALLAPOT:"; std::cin >> newCond;
+        newDoc= readStringInput("KEZELOORVOS:");
+        newCond= readStringInput("EGESZSEGUGYI ALLAPOT:");
         d.add(new Patient(NewN, newPrivateP, newWorkP, newAddr, newCond, newDoc));
-    }
+        }
 }
 
 void Phonebook::removeContact(std::ostream& os) {
@@ -47,7 +47,7 @@ void Phonebook::removeContact(std::ostream& os) {
         int choice;
         d.list(os);
         std::cout << "MELYIKET SZERETNED TOROLNI?\n";
-        std::cout << "VALASZTASOD:"; std::cin >> choice;
+        choice= readIndexInput("VALASZTASOD:", 1, d.getsize());
         d.remove(choice);
     }
 }
@@ -57,10 +57,10 @@ void Phonebook::searchContact(std::ostream &os) {
         std::cout << "NINCS KONTAKT!\n";
     else {
         std::string findingContact;
-        std::cout << "ADJ MEG VALAMILYEN ADATOT\n";//itt nem tudom hogyan kene esetekre szetbonatni, mert akkor ugye az ==operatornak nem lenne ertelme, esetekre meg nem tudom mennyi ertelme van mert az operator || esetekkel foglalkozik
-        std::cout << "ADAT:";
-        std::cin >> findingContact;
-        d.search(findingContact, os);
+        std::cout << "EZEKBOL A MEZOKBOL FOG KERESNI:NEV, BECENEV, PRIVAT SZAM\n";//itt nem tudom hogyan kene esetekre szetbonatni, mert akkor ugye az ==operatornak nem lenne ertelme, esetekre meg nem tudom mennyi ertelme van mert az operator || esetekkel foglalkozik
+        findingContact= readStringInput("ADAT:");
+        if(!d.search(findingContact, os))
+            std::cout << "NINCS ILYEN KONTAKT!\n";
     }
 }
 
@@ -71,8 +71,7 @@ void Phonebook::modifyContact(std::ostream &os) {
         int index;
         int choosingAttribute;
         d.list(os);
-        std::cout << "MELYIK KONTAKTOT MODOSITANAD?:";
-        std::cin >> index;
+        index= readIndexInput("MELYIK KONTAKTOT MODOSITANAD?:", 1, d.getsize());
         Contact& c=d[index-1];
         std::cout << "MIT MODOSITANAL RAJTA?\n"
                   << "VEZETEKNEV         [1]\n"
@@ -82,12 +81,12 @@ void Phonebook::modifyContact(std::ostream &os) {
                   << "MUNKAHElY SZAM     [5]\n"
                   << "PRIVAT SZAM        [6]\n";
         if(dynamic_cast<Patient*>(&c))
-            std::cout <<"KEZELOORVOS NEVE   [7]\n"
-                      <<"EG.GUGYI ALLAPOTA  [8]\n";
+            std::cout <<"EG.GUGYI ALLAPOTA  [7]\n"
+                      <<"KEZELOORVOS NEVE   [8]\n";
         else if(dynamic_cast<Doctor*>(&c))
-            std::cout <<"MUNKAHELY NEVE     [7]\n"
-                      <<"SPECIALIZACIO      [8]\n";
-        std::cout << "VALASZTAS:"; std::cin >> choosingAttribute;
+            std::cout <<"SPECIALIZACIO      [7]\n"
+                      <<"MUNKAHELY NEVE     [8]\n";
+        choosingAttribute= readIndexInput("VALASZTAS:", 1, 8);
         d.modify(choosingAttribute, c);
     }
 }
@@ -102,19 +101,19 @@ void Phonebook::saveToFile() {
 void Phonebook::loadFromFile(const std::string& filename) {
     std::ifstream file(filename);
     if (!file) {
-        std::cerr << "Nem sikerült megnyitni a fájlt!\n";
+        std::cerr << "NEM SIKERULT A FAJL MEGNYITASA!\n";
         return;
     }
 
     std::string line;
-    while (std::getline(file, line)) {
+    while (getline(file, line)) {
         if (line.empty()) continue;
 
         try {
             Contact* c = Contact::deserialize(line);
             d.add(c);
         } catch (const std::exception& e) {
-            std::cerr << "Hibás sor: " << e.what() << '\n';
+            std::cerr << "HIBAS SOR: " << e.what() << '\n';
         }
     }
     file.close();
