@@ -8,8 +8,8 @@
 #include <sstream>
 #include "memtrace.h"
 
-#define CPORTA
-#ifdef CPORTA
+
+#ifdef CPORTA //tesztek futnak le
 int main() {
 TEST(ContactTest, EqualityOperator) {
     Name name("Anna", "Kovacs", "Anci");
@@ -60,9 +60,9 @@ TEST(EdgeCases, NullArrayAccess) {
 } END
 }
 #else
-int main() {
+int main() { //felhasznaloi modban fut le a menu
     Menu m;
-    m.run();
+    m.run(); //a menu objektuma elinditja magát a programot
     return 0;
 }
 #endif
