@@ -1,5 +1,6 @@
 #include "doctor.h"
 #include <sstream>
+#include "memtrace.h"
 
 std::string Doctor::getSpecialization() const {
     return specialization;
@@ -21,9 +22,9 @@ void Doctor::print(std::ostream &os) const {
     name.namePrint(os);
     os << "CIM: " << getAddress() << '\n'
        << "MUNKAHELYI SZAM: " << getWorkPhone() << '\n'
-       << "PRIVAT SZAM:" << getPrivatePhone() << '\n'
+       << "PRIVAT SZAM: " << getPrivatePhone() << '\n'
        << "MUNKAHELY: " << getWorkplace() << '\n'
-       << "SPECIALIZACIOJA:" << getSpecialization() << '\n';
+       << "SPECIALIZACIO: " << getSpecialization() << '\n';
 }
 
 std::ostream& operator<<(std::ostream& os, const Doctor& d) {
@@ -33,6 +34,6 @@ std::ostream& operator<<(std::ostream& os, const Doctor& d) {
 
 std::string Doctor::serialize() const {
     std::ostringstream oss;
-    oss << '1' << "|" << name.getLastname() << " | " << name.getFirstname() << " | " << name.getNickname() << " | " << address << " | " << workPhone << " | " << privatePhone << " | " << specialization << " | " << workplace << " | $";
+    oss << '1' << '|' << name.getLastname() << '|' << name.getFirstname() << '|' << name.getNickname() << '|' << address << '|' << workPhone << '|' << privatePhone << '|' << specialization << '|' << workplace << "|$";
     return oss.str();
 }
