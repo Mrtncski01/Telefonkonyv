@@ -2,22 +2,22 @@
 #define PHONEBOOK_NAME_H
 #include <iostream>
 
+//name osztaly, ez felel a contactok neveert
 class Name {
 private:
-    std::string firstname;
-    std::string lastname;
-    std::string nickname;
+    std::string firstname; //keresztnev
+    std::string lastname; //vezeteknev
+    std::string nickname; //becenev
 public:
-    Name() {}
-    Name(const std::string& newfirstname, const std::string& newlastname,const std::string& newnickname) : firstname(newfirstname), lastname(newlastname), nickname(newnickname) {}
-    std::string getFirstname() const;
-    std::string getLastname() const;
-    std::string getNickname() const;
-    void setFirstname(const std::string& newFirstname);
-    void setLastname(const std::string& newLastname);
-    void setNickname(const std::string& newNickname);
-    void namePrint(std::ostream& os) const;
-    ~Name() {}
+    Name(const std::string& newfirstname, const std::string& newlastname,const std::string& newnickname) : firstname(newfirstname), lastname(newlastname), nickname(newnickname) {} //konstruktor
+    std::string getFirstname() const; //visszaadja a keresztnevet
+    std::string getLastname() const; //visszaadja a vezeteknevet
+    std::string getNickname() const; //visszaadja a becenevet
+    void setFirstname(const std::string& newFirstname); //beallitja, a keresztnevet, modositashoz kell
+    void setLastname(const std::string& newLastname); //ugyanez
+    void setNickname(const std::string& newNickname); //ugyanez
+    void namePrint(std::ostream& os) const; //kiirj a felhasznalo vezetek, kereszt, illetve becenevet
+    ~Name() {} //destruktor
 };
 std::ostream& operator<<(std::ostream& os, const Name& name);
 
