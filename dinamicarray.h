@@ -1,9 +1,10 @@
-#ifndef PHONEBOOK_DINAMICYARRAY_H
-#define PHONEBOOK_DINAMICYARRAY_H
+#ifndef PHONEBOOK_DINAMICARRAY_H
+#define PHONEBOOK_DINAMICARRAY_H
 #include <iostream>
 #include "contact.h"
 #include "doctor.h"
 #include "patient.h"
+#include "inputmanaging.h"
 
 
 class DinamicArray {
@@ -20,9 +21,9 @@ public:
     void list(std::ostream& os);
     void remove(size_t index);
     void resize();
-    void search(std::string find, std::ostream& os) const;
+    bool search(std::string find, std::ostream& os) const;
     void modify(int modifyingAttribution, Contact& c);
 };
 
 
-#endif //PHONEBOOK_DINAMICYARRAY_H
+#endif //PHONEBOOK_DINAMICARRAY_H
